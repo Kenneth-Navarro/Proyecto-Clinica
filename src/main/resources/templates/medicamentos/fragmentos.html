@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{/layout/plantilla::head}"> </head>
+    <body>
+
+
+        <div th:fragment="registroMedicamentos">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Registrar Medicamentos
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+        <div th:fragment="formMedicamentos">
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <form class="mb-5" method="post" id="contactForm" name="contactForm" th:action="@{/medicamentos/guardarMedicamentos}" th:object="${medicamentos}">
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                                   placeholder="Nombre"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label ">Descripcion</label>
+                                            <input type="text" class="form-control " name="descripcion" id="descripcion"
+                                                   placeholder="Descripcion"/>
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Indicaciones</label>
+                                            <input type="text" class="form-control" name="indicaciones" id="indicaciones"
+                                                   placeholder="Indicaciones"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label ">Efectos Secundarios</label>
+                                            <input type="text" class="form-control " name="efectos_secundarios" id="efectos_secundarios"
+                                                   placeholder="Efectos Secundarios"/>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Fecha de caducidad</label>
+                                            <input type="date" class="form-control" name="fecha_caducidad" id="fecha_caducidad"
+                                                   placeholder="Fecha Caducidad"/>
+                                        </div>
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">dosis</label>
+                                            <input type="text" class="form-control" name="dosis" id="dosis"
+                                                   placeholder="Dosis"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label ">Costo</label>
+                                            <input type="number" class="form-control " name="costo" id="costo"
+                                                   placeholder="Costo"/>
+
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <input type="submit" value="Registrar" class="btn btn-primary py-2 px-4"/>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div id="form-message-warning mt-4"></div>
+                                <div id="form-message-success">
+                                    Su registro fue exitoso
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+        <div th:fragment="buscarMedicamentos">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Información de Medicamentos
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+        <div th:fragment="tabla">
+
+            <div class="container">
+                <div class="col-md-12 mt-5">
+                    
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Dosis</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="medicamentos : ${medicamentos}">
+                                    <td>[[${medicamentos.codigo_medicamento}]]</td>
+                                    <td>[[${medicamentos.nombre}]]</td>
+                                    <td>[[${medicamentos.descripcion}]]</td>
+                                    <td>[[${medicamentos.dosis}]]</td>
+
+
+                                    <td class="td-actions text-end">
+                                        <a  th:href="@{/medicamentos/ver/}+${medicamentos.codigo_medicamento}" class="btn btn-info btn-link btn-just-icon btn-sm" title="Ver">
+                                            <i class="material-icons">person</i>
+                                        </a>
+
+                                        <a th:href="@{/medicamentos/actualizar/}+${medicamentos.codigo_medicamento}" class="btn btn-success btn-link btn-just-icon btn-sm" title="Editar">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+
+                                        <a th:href="@{/medicamentos/eliminar/}+${medicamentos.codigo_medicamento}" class="btn btn-danger btn-link btn-just-icon btn-sm" title="Eliminar">
+                                            <i class="material-icons">close</i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+        <div th:fragment="modMedicamentos">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Actualizar Medicamento
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+
+        </div>
+
+
+
+        <div th:fragment="modificaMedicamentos" >
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <form class="mb-5" method="post" id="contactForm" name="contactForm" th:action="@{/medicamentos/modificar}" th:object="${medicamentos}">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Codigo</label>
+                                            <input type="number" class="form-control" name="codigo_medicamento" id="codigo_medicamento"
+                                                   th:field="*{codigo_medicamento}" readonly="true"/>
+                                        </div>
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                                   th:field="*{nombre}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label ">Descripcion</label>
+                                            <input type="text" class="form-control " name="descripcion" id="descripcion"
+                                                   th:field="*{descripcion}"/>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label">Indicaciones</label>
+                                            <input type="text" class="form-control" name="indicaciones" id="indicaciones"
+                                                   th:field="*{indicaciones}"/>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label ">Efectos Secundarios</label>
+                                            <input type="text" class="form-control " name="efectos_secundarios" id="efectos_secundarios"
+                                                   th:field="*{efectos_secundarios}"/>
+
+
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+
+                                            <label class="col-form-label">Fecha de caducidad</label>
+                                            <input type="date" class="form-control" name="fecha_caducidad" id="fecha_caducidad"
+                                                   th:field="*{fecha_caducidad}"/>
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">dosis</label>
+                                            <input type="text" class="form-control" name="dosis" id="dosis"
+                                                   th:field="*{dosis}"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label ">Costo</label>
+                                            <input type="number" class="form-control " name="costo" id="costo"
+                                                   th:field="*{costo}"/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <input type="submit" value="Actualizar" class="btn btn-primary py-2 px-4"/>
+                                            <a th:href="@{/medicamentos/crudMedicamentos}" class="btn btn-primary py-2 px-4">Volver</a>
+                                        </div>
+                                    </div>
+                            </div>
+                            </form>
+
+
+
+                        </div>
+                        <div class="box_gris_separador"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+        <div th:fragment="vMedicamentos">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Información del Medicamento
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+
+        </div>
+
+
+
+        <div th:fragment="verMedicamentos">
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <div class="mb-5" id="contactForm" th:object="${medicamentos}">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Codigo</label>
+                                            <input type="number" class="form-control" name="codigo_medicamento" id="codigo_medicamento"
+                                                   th:field="*{codigo_medicamento}" readonly="true"/>
+                                        </div>
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                                   th:field="*{nombre}" readonly="true"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label ">Descripcion</label>
+                                            <input type="text" class="form-control " name="descripcion" id="descripcion"
+                                                   th:field="*{descripcion}" readonly="true"/>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label">Indicaciones</label>
+                                            <input type="text" class="form-control" name="indicaciones" id="indicaciones"
+                                                   th:field="*{indicaciones}" readonly="true"/>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label ">Efectos Secundarios</label>
+                                            <input type="text" class="form-control " name="efectos_secundarios" id="efectos_secundarios"
+                                                   th:field="*{efectos_secundarios}" readonly="true"/>
+
+                                        </div>
+                                        
+                                        <div class="col-md-6 form-group mb-3">
+
+
+                                            <label class="col-form-label">Fecha de caducidad</label>
+                                            <input type="text" class="form-control" name="fecha_caducidad" id="fecha_caducidad"
+                                                   th:field="*{fecha_caducidad}" readonly="true"/>
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">dosis</label>
+                                            <input type="text" class="form-control" name="dosis" id="dosis"
+                                                   th:field="*{dosis}" readonly="true"/>
+                                        </div>
+
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label ">Costo</label>
+                                            <input type="number" class="form-control " name="costo" id="costo"
+                                                   th:field="*{costo}" readonly="true"/>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-5 form-group text-center">
+
+                                        <a th:href="@{/medicamentos/crudMedicamentos}" class="btn btn-primary py-2 px-4">Volver</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="box_gris_separador"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </body>
+
+</html>

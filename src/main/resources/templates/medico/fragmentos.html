@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{/layout/plantilla::head}"> </head>
+    <body>
+
+
+        <div th:fragment="registroMedico">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Registrar Médico
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+
+        <div th:fragment="formMedico">
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <form class="mb-5" method="post" id="contactForm" name="contactForm" th:action="@{/medico/guardarMedico}" th:object="${medico}">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Cedula</label>
+                                            <input type="number" class="form-control" name="cedula" id="cedula"
+                                                   placeholder="Cedula"/>
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                                   placeholder="Nombre"/>
+
+                                            <input type="text" class="form-control mt-3" name="primerApellido" id="apellido"
+                                                   placeholder="Primer Apellido"/>
+
+                                            <input type="text" class="form-control mt-3" name="segundoApellido"
+                                                   id="segundoApellido" placeholder="Segundo Apellido"/>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label ">Contacto</label>
+                                            <input type="number" class="form-control " name="telefono" id="telefono"
+                                                   placeholder="Telefono"/>
+                                            <input type="email" class="form-control mt-3" name="correo" id="correo"
+                                                   placeholder="Correo Electronico"/>
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Residencia</label>
+                                            <input type="text" class="form-control" name="provincia" id="provincia"
+                                                   placeholder="Provincia"/>
+                                            <input type="text" class="form-control mt-3" name="canton" id="canton"
+                                                   placeholder="Canton"/>
+                                            <input type="text" class="form-control mt-3" name="distrito" id="distrito"
+                                                   placeholder="Distrito"/>
+                                            <input type="text" class="form-control mt-3" name="otros" id="otros"
+                                                   placeholder="Otros"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Género</label>
+                                                    <select class="form-select form-select-sm form-control" aria-label="Small select example">
+                                                        <option selected="true">Seleccione una opción</option>
+                                                        <option value="0">Femenino</option>
+                                                        <option value="1">Masculino</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Edad</label>
+                                                    <input type="number" class="form-control" name="edad" id="edad"
+                                                           placeholder="Edad"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Numero de Colegiado</label>
+                                                    <input type="number" class="form-control" name="numColegiado" id="num_colegiado"
+                                                           placeholder="Numero de Colegiado"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Especialidad</label>
+                                                    <select class="form-control form-select" name="especialidad" id="especialidad">
+                                                        <option value="">Selecciona una opción</option>
+                                                        <option th:each="especialidad : ${especialidades}" th:value="${especialidad.idEspecialidad}" th:text="${especialidad.Nombre}"></option>
+                                                    </select>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <input type="submit" value="Registrar" class="btn btn-primary py-2 px-4"/>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div id="form-message-warning mt-4"></div>
+                                <div id="form-message-success">
+                                    Su registro fue exitoso
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+        <div th:fragment="buscarMedico">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Información de Medicos
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+        <div th:fragment="tabla">
+
+            <div class="container">
+                <div class="col-md-12 mt-5">
+
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Cedula</th>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Telefono</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="medico : ${medicos}">
+                                    <td>[[${medico.cedula}]]</td>
+                                    <td>[[${medico.nombre}]]</td>
+                                    <td>[[${medico.primerApellido}+' '+${medico.segundoApellido}]]</td>
+                                    <td>[[${medico.Telefono}]]</td>
+
+
+                                    <td class="td-actions text-end">
+                                        <a  th:href="@{/medico/ver/}+${medico.cedula}" class="btn btn-info btn-link btn-just-icon btn-sm" title="Ver">
+                                            <i class="material-icons">person</i>
+                                        </a>
+
+                                        <a th:href="@{/medico/modificar/}+${medico.cedula}" class="btn btn-success btn-link btn-just-icon btn-sm" title="Editar">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+
+                                        <a th:href="@{/medico/eliminar/}+${medico.cedula}" class="btn btn-danger btn-link btn-just-icon btn-sm" title="Eliminar">
+                                            <i class="material-icons">close</i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+        <div th:fragment="modMedico">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Actualizar Médico
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+
+        <div th:fragment="modificaMedico" >
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <form class="mb-5" method="post" id="contactForm" name="contactForm" th:action="@{/medico/actualizarMedico}" th:object="${medico}">
+                                    <input type="hidden" class="form-control" name="cedID" id="cedID"
+                                           th:value="${cedID}"/>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Cedula</label>
+                                            <input type="number" class="form-control" name="cedula" id="cedula"
+                                                   th:field="*{cedula}"/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                                   th:field="*{nombre}"/>
+
+                                            <input type="text" class="form-control mt-3" name="primerApellido" id="apellido"
+                                                   th:field="*{primerApellido}"/>
+
+                                            <input type="text" class="form-control mt-3" name="segundoApellido"
+                                                   id="segundoApellido"  th:field="*{segundoApellido}"/>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label ">Contacto</label>
+                                            <input type="number" class="form-control " name="telefono" id="telefono"
+                                                   th:field="*{telefono}"/>
+                                            <input type="email" class="form-control mt-3" name="correo" id="correo"
+                                                   th:field="*{correo}"/>
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Residencia</label>
+                                            <input type="text" class="form-control" name="provincia" id="provincia"
+                                                   th:field="*{provincia}"/>
+                                            <input type="text" class="form-control mt-3" name="canton" id="canton"
+                                                   th:field="*{canton}"/>
+                                            <input type="text" class="form-control mt-3" name="distrito" id="distrito"
+                                                   th:field="*{distrito}"/>
+                                            <input type="text" class="form-control mt-3" name="otros" id="otros"
+                                                   th:field="*{otros}"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Género</label>
+                                                    <select class="form-select form-select-sm form-control" aria-label="Small select example" th:field="*{genero}">
+
+                                                        <option th:value="0" th:selected="${genero == 0}">Femenino</option>
+                                                        <option th:value="1" th:selected="${genero == 1}">Masculino</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Edad</label>
+                                                    <input type="number" class="form-control" name="edad" id="edad"
+                                                           th:field="*{edad}"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Numero de Colegiado</label>
+                                                    <input type="number" class="form-control" name="numColegiado" id="num_colegiado"
+                                                           th:field="*{numColegiado}"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Especialidad</label>
+                                                    <select class="form-control form-select" name="especialidad" id="especialidad" th:field="*{especialidad}">
+
+                                                        <option th:each="especialidad : ${especialidades}" th:value="${especialidad.idEspecialidad}" th:text="${especialidad.Nombre}"></option>
+                                                    </select>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <input type="submit" value="Actualizar" class="btn btn-primary py-2 px-4"/>
+                                            <a th:href="@{/medico/crudMedico}" class="btn btn-primary py-2 px-4">Volver</a>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+
+                            </div>
+                            <div class="box_gris_separador"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div th:fragment="vMedico">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Información del Médico
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+
+        </div>
+
+
+
+        <div th:fragment="verMedico" >
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <div class="mb-5" id="contactForm" th:object="${medico}">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Cedula</label>
+                                            <input type="number" class="form-control" name="cedula" id="cedula"
+                                                   th:field="*{cedula}" readonly="true"/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                                   th:field="*{nombre}" readonly="true"/>
+
+                                            <input type="text" class="form-control mt-3" name="primerApellido" id="apellido"
+                                                   th:field="*{primerApellido}" readonly="true"/>
+
+                                            <input type="text" class="form-control mt-3" name="segundoApellido"
+                                                   id="segundoApellido"  th:field="*{segundoApellido}" readonly="true"/>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label ">Contacto</label>
+                                            <input type="number" class="form-control " name="telefono" id="telefono"
+                                                   th:field="*{telefono}" readonly="true"/>
+                                            <input type="email" class="form-control mt-3" name="correo" id="correo"
+                                                   th:field="*{correo}" readonly="true"/>
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Residencia</label>
+                                            <input type="text" class="form-control" name="provincia" id="provincia"
+                                                   th:field="*{provincia}" readonly="true"/>
+                                            <input type="text" class="form-control mt-3" name="canton" id="canton"
+                                                   th:field="*{canton}" readonly="true"/>
+                                            <input type="text" class="form-control mt-3" name="distrito" id="distrito"
+                                                   th:field="*{distrito}" readonly="true"/>
+                                            <input type="text" class="form-control mt-3" name="otros" id="otros"
+                                                   th:field="*{otros}" readonly="true"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Género</label>
+                                                    <input type="text" class="form-control mt-3" th:value="${genero} ? 'Femenino' : 'Masculino'" name="genero" id="genero"
+                                                           readonly="true" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Edad</label>
+                                                    <input type="number" class="form-control" name="edad" id="edad"
+                                                           th:field="*{edad}" readonly="true"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Numero de Colegiado</label>
+                                                    <input type="number" class="form-control" name="numColegiado" id="num_colegiado"
+                                                           th:field="*{numColegiado}" readonly="true"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Especialidad</label>
+                                                    <input type="text" class="form-control" name="especialidad" id="especialidad"
+                                                           th:field="*{especialidad.nombre}" readonly="true"/>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+
+                                            <a th:href="@{/medico/crudMedico}" class="btn btn-primary py-2 px-4">Volver</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="box_gris_separador"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </body>
+
+</html>

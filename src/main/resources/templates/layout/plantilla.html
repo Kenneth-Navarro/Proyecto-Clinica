@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      >
+    <head th:fragment="head">
+        <title>Clinica</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/style.css}"/>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <link rel="stylesheet" type="text/css"
+         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+        <script th:src="@{/js/ManejoCitas.js}"></script>
+            
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    </head>
+
+    <header th:fragment="header">
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-5 col-md-9 col-sm-9">
+                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarClinica" aria-controls="navbarClinica" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </nav>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo">
+                                    <a href="/"><img src="/images/logo.png" alt="logo" style="width: 150px"/></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    
+    <section th:fragment="navbar">
+        <div class="box_gris_nav"></div>
+        <div class="navbar navbar-expand-lg personalizado_nav">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+                    <div class="navbar-nav custom-opcion">
+
+                        <a class="nav-link " aria-current="page" th:href="@{/medico/crudMedico}">Medicos</a>
+
+                        <a class="nav-link " aria-current="page" th:href="@{/medicamentos/crudMedicamentos}">Medicamentos</a>
+
+                        <a class="nav-link " aria-current="page" th:href="@{/cita/crudCita}">Citas</a>
+
+                        <a class="nav-link " aria-current="page" th:href="@{/tratamiento/crudTratamiento}">Tratamientos</a>
+
+                         <a class="nav-link " aria-current="page" th:href="@{/paciente/crudPaciente}">Pacientes</a>
+
+                        <a class="nav-link " aria-current="page" th:href="@{/factura/crudFactura}">Facturas</a>
+
+                        <a class="nav-link " aria-current="page" th:href="@{/pago/crudPago}">Pagos</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box_gris_nav"> </div>
+
+
+    </section>
+
+
+    <footer th:fragment="footer">
+        <div class="footer">
+            <div class="container">
+                <div class="copyright">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p> Copyright © 2023 Derechos Reservados. <a href="">Clínica Urgencias Occidente</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+</html>

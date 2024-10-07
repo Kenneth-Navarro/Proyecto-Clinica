@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{/layout/plantilla::head}"> </head>
+
+    <body>
+
+
+        <div th:fragment="registroPago">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Registrar Pago
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+
+        </div>
+
+
+
+        <div th:fragment="formPago">
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <form class="mb-5" method="post" id="contactForm" name="contactForm" th:action="@{/pago/guardarPago}" th:object="${pago}">
+                                    <input type="hidden" name="paciente" th:value="${cita.paciente.cedula}"/>
+                                    <input type="hidden" name="idCita" th:value="${cita.idCita}"/>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Paciente</label>
+                                            <input type="text" class="form-control"  th:value="${cita.paciente.nombre} + ' ' + ${cita.paciente.primerApellido} + ' ' + ${cita.paciente.segundoApellido}" readonly/>
+                          
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Monto</label>
+                                            <input type="number" class="form-control" name="monto" id="monto" th:value="${total}"
+                                                    readonly/>
+
+                                        </div>
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Fecha</label>
+                                            <input type="text" class="form-control " name="fecha" id="fecha"
+                                                   th:value="${fecha}" readonly/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row ">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Metodo de pago</label>
+                                            <select class="form-select form-select-sm form-control" aria-label="Small select example" name="metodoPago" required>
+                                                <option selected="true">Seleccione una opción</option>
+                                                <option value="Sinpe">Sinpe</option>
+                                                <option value="Tarjeta de débito">Tarjeta de débito</option>
+                                                <option value="Transferencia bancaria">Transferencia bancaria</option>
+                                                <option value="Efectivo">Efectivo</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Estado de pago</label>
+                                            <input type="text" class="form-control " name="estadoPago" id="estado"
+                                                   value="Pendiente" readonly/>
+
+                                        </div>
+                                    </div>
+
+                                    <div  class="row mb-5">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Detalle de pago</label>
+                                                    <textarea  name="detalle" rows="10" cols="120" class="form-control"
+                                                               placeholder="Detalle de pago" required></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            
+                                            <input value="Crear Pago" type="submit" class="btn btn-primary py-3 px-4">
+                                                <a th:href="@{/cita/modificar/}+${cita.idCita}" class="btn btn-primary py-3 px-4">Volver</a>
+                                                
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div id="form-message-warning mt-4"></div>
+                                <div id="form-message-success">
+                                    Su creacion fue exitosa
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+        <div th:fragment="infoPago">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Información de Pagos
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+
+        </div>
+
+        <div th:fragment="tabla">
+
+            <div class="container">
+                <div class="col-md-12 mt-5">
+                   
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Paciente</th>
+                                    <th>Monto</th>
+                                    <th>Detalle</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="pago : ${pagos}">
+                                    <td>[[${pago.idPago}]]</td>
+                                    <td>[[${pago.paciente.nombre}]] [[${pago.paciente.primerApellido}]] [[${pago.paciente.segundoApellido}]]</td>
+                                    <td>[[${pago.monto}]]</td>
+                                    <td>[[${pago.detalle}]]</td>
+
+
+                                    <td class="td-actions text-end">
+                                        <a  th:href="@{/pago/ver/}+${pago.idPago}" class="btn btn-info btn-link btn-just-icon btn-sm" title="Ver">
+                                            <i class="material-icons">person</i>
+                                        </a>
+
+                                        
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+        <div th:fragment="modPago">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Actualizar Pago
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div th:fragment="modificaPago" th:object="${evento}">
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <form class="mb-5" method="post" id="contactForm" name="contactForm" th:action="@{/pago/actualizarPago}" th:object="${pago}">
+
+                                    <input type="text" class="form-control" name="identificador" id="identificador"
+                                           th:value="${identificador}"/>
+
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Paciente</label>
+                                            <input type="number" class="form-control" name="cedula" id="cedula"
+                                                   th:field="*{paciente.cedula}" required/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Monto</label>
+                                            <input type="text" class="form-control" name="monto" id="monto"
+                                                   th:field="*{monto}" required/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label ">Fecha</label>
+                                            <input type="date" class="form-control " name="fecha" id="fecha"
+                                                   th:value="*{fecha}" required/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Metodo de pago</label>
+                                            <select class="form-select form-select-sm form-control" aria-label="Small select example"  th:field="*{metodoPago}" required>
+                                                <option value="" selected="true">Seleccione una opción</option>
+                                                <option th:value="Sinpe" th:selected="${metodoPago == 'Sinpe'}">Sinpe</option>
+                                                <option th:value="Tarjeta_debito" th:selected="${metodoPago == 'Tarjeta_debito'}">Tarjeta de débito</option>
+                                                <option th:value="Transferencia_bancaria" th:selected="${metodoPago == 'Transferencia bancaria'}">Transferencia bancaria</option>
+                                                <option th:value="Efectivo" th:selected="${metodoPago == 'Efectivo'}">Efectivo</option>
+                                                
+                                                
+                                            </select>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Estado de pago</label>
+                                            <select class="form-select form-select-sm form-control" aria-label="Small select example" th:field="*{estadoPago}" required>
+
+                                                <option value="" selected="true">Seleccione una opción</option>
+                                                <option th:value="Pendiente" th:selected="${estadoPago == 'Pendiente'}">Pendiente</option>
+                                                <option th:value="Procesando" th:selected="${estadoPago == 'Procesando'}">Procesando</option>
+                                                <option th:value="Finalizado" th:selected="${estadoPago == 'Finalizado'}">Finalizado</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="row mb-5">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="col-form-label">Detalle</label>
+                                                        <input type="text" class="form-control" name="detalle" id="detalle"
+                                                               th:field="*{detalle}" required/>
+                                                    </div>                                               
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <input type="submit" value="Actualizar" class="btn btn-primary py-3 px-4"></input>
+                                            <a th:href="@{/pago/crudPago}" class="btn btn-primary py-3 px-4">Volver</a>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+
+                            </div>
+                            <div class="box_gris_separador"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div th:fragment="vPago">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Información Pago
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div th:fragment="verPago" th:object="${evento}">
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <div class="mb-5" id="contactForm" th:object="${pago}">
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Paciente</label>
+                                            <input type="text" class="form-control" name="paciente" id="cedula"
+                                                   th:field="*{paciente.cedula}" readonly="true"/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Monto</label>
+                                            <input type="number" class="form-control" name="monto" id="monto"
+                                                   th:field="*{monto}" readonly="true"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Fecha</label>
+                                            <input type="Date" class="form-control " name="fecha" id="fecha"
+                                                   th:value="*{fecha}" readonly="true"/>       
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Metodo de pago</label>
+                                            <input type="text" class="form-control" th:field="*{metodoPago}" name="metodoPago" id="metodoPago"
+                                                   readonly="true" />
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label ">Estado de pago</label>
+                                            <input type="text" class="form-control " name="estadoPago" id="estadoPago"
+                                                   th:field="*{estadoPago}" readonly="true"/>       
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="col-form-label">Detalle de pago</label>
+                                                    <input type="text" class="form-control" name="detalle" id="detalle"
+                                                           th:field="*{detalle}" readonly="true"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <a th:href="@{/pago/crudPago}" class="btn btn-primary py-3 px-4">Volver</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="box_gris_separador"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>

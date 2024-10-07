@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{/layout/plantilla::head}"> </head>
+
+    <body>
+
+
+        <div th:fragment="registroTratamiento">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Registrar Tratamiento
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+
+        <div th:fragment="formTratamiento">
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <form class="mb-5" method="post" id="contactForm" name="contactForm" th:action="@{/tratamiento/guardarTratamiento}" th:object="${tratamiento}">
+                                    <div class="row">
+
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                                   placeholder="nombre"/>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label ">Duracion</label>
+                                            <input type="text" class="form-control " name="duracion" id="duracion"
+                                                   placeholder="duracion"/>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Costo</label>
+                                            <input type="number" class="form-control" name="costo" id="costo"
+                                                   placeholder="costo"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Medicamentos</label>
+                                            <select class="select2 select2-hidden-accessible" multiple="multiple" id="medicamento" name="medicamento[]" data-placeholder="Seleccionar Medicamento" data-dropdown-css-class="select2-danger" style="width: 100%;" tabindex="1" aria-hidden="true">
+                                                <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.codigo_medicamento}" th:text="${medicamento.Nombre}" ></option>
+                                            </select>
+                                            <input type="hidden" name="medicamentosSeleccionados" id="medicamentosSeleccionados" />
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <input type="submit" value="Registrar" class="btn btn-primary py-2 px-4"/>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div id="form-message-warning mt-4"></div>
+                                <div id="form-message-success">
+                                    Su registro fue exitoso
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box_gris_separador"> </div>
+            <script>
+                $(function () {
+                    // Initialize Select2 Elements
+                    $('.select2').select2();
+
+                    // Intercept form submission and update the hidden field with selected values
+                    $('#contactForm').submit(function () {
+                        var selectedMedicamentos = $('#medicamento').val();
+                        $('#medicamentosSeleccionados').val(selectedMedicamentos);
+                    });
+                });
+            </script>
+        </div>
+
+
+        <div th:fragment="buscarTratamiento">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Información de Tratamientos
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+        <div th:fragment="tabla">
+
+            <div class="container">
+                <div class="col-md-12 mt-5">
+                    
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Duracion</th>
+                                    <th>Costo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="tratamiento : ${tratamiento}">
+                                    <td>[[${tratamiento.nombre}]]</td>
+                                    <td>[[${tratamiento.duracion}]]</td>
+                                    <td>[[${tratamiento.costo}]]</td>
+
+
+                                    <td class="td-actions text-end">
+                                        <a  th:href="@{/tratamiento/ver/}+${tratamiento.ID_Tratamiento}" class="btn btn-info btn-link btn-just-icon btn-sm" title="Ver">
+                                            <i class="material-icons">person</i>
+                                        </a>
+
+                                        <a th:href="@{/tratamiento/modificar/}+${tratamiento.ID_Tratamiento}" class="btn btn-success btn-link btn-just-icon btn-sm" title="Editar">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+
+                                        <a th:href="@{/tratamiento/eliminar/}+${tratamiento.ID_Tratamiento}" class="btn btn-danger btn-link btn-just-icon btn-sm" title="Eliminar">
+                                            <i class="material-icons">close</i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+        <div th:fragment="modTratamiento">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Actualizar Tratamiento
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+
+        </div>
+
+
+
+        <div th:fragment="modificaTratamiento" th:object="${evento}">
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <form class="mb-5" method="post" id="contactForm" name="contactForm" th:action="@{/tratamiento/actualizarTratamiento}" th:object="${tratamiento}">
+                                    <div class="row">
+                                        <input type="hidden" class="form-control " name="ID_Tratamiento" id="ID_Tratamiento"
+                                               th:field="*{ID_Tratamiento}"/>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                                   th:field="*{nombre}"/>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label ">Duracion</label>
+                                            <input type="text" class="form-control " name="duracion" id="duracion"
+                                                   th:field="*{duracion}"/>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Costo</label>
+                                            <input type="number" class="form-control" name="costo" id="costo"
+                                                   th:field="*{costo}"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Medicamentos</label>
+                                            <select class="select2 select2-hidden-accessible" multiple="multiple" id="medicamento" name="medicamento[]" data-placeholder="Seleccionar Medicamento" data-dropdown-css-class="select2-danger" style="width: 100%;" tabindex="1" aria-hidden="true">
+                                                <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.codigo_medicamento}" th:text="${medicamento.Nombre}" th:selected="${medicamentosTratamiento.contains(medicamento)}"></option>
+                                            </select>
+
+
+                                            <input type="hidden" name="medicamentosSeleccionados" id="medicamentosSeleccionados" />
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <input type="submit" value="Actualizar" class="btn btn-primary py-2 px-4"/>
+                                            <a th:href="@{/tratamiento/crudTratamiento}" class="btn btn-primary py-2 px-4">Volver</a>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+                            </div>
+                            <div class="box_gris_separador"> </div>
+                            <script>
+                                $(function () {
+                                    // Initialize Select2 Elements
+                                    $('.select2').select2();
+
+                                    // Intercept form submission and update the hidden field with selected values
+                                    $('#contactForm').submit(function () {
+                                        var selectedMedicamentos = $('#medicamento').val();
+                                        $('#medicamentosSeleccionados').val(selectedMedicamentos);
+                                    });
+                                });
+                            </script>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div th:fragment="vTratamiento">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Información del Tratamiento
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+
+        </div>
+
+
+
+        <div th:fragment="verTratamiento" th:object="${evento}">
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <div class="mb-5" id="contactForm" th:object="${tratamiento}">
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                                   th:field="*{nombre}" readonly="true"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <label class="col-form-label ">Duracion</label>
+                                            <input type="text" class="form-control " name="duracion" id="duracion"
+                                                   th:field="*{duracion}"/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Costo</label>
+                                            <input type="text" class="form-control" name="costo" id="costo"
+                                                   th:field="*{costo}"/>
+                                        </div>
+
+
+                                        <div class="col-md-6 form-group mb-3" th:if="${medicamentos}">
+                                            <label class="col-form-label">Medicamentos</label>
+                                            <br/>
+                                            <ul class="list-group">
+                                                <li th:each="medicamento : ${medicamentos}" th:text="${medicamento.Nombre}"  class="list-group-item disabled" aria-disabled="true"></li>
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+
+                                            <a th:href="@{/tratamiento/crudTratamiento}" class="btn btn-primary py-2 px-4">Volver</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="box_gris_separador"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </body>
+
+</html>

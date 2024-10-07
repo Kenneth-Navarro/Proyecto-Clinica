@@ -1,0 +1,493 @@
+:root {
+    --blanco: #fff;
+    --celeste: #89ABD9;
+    --azulClaro: #1C4E8D;
+    --gris: #F0F0F2;
+    --negro: #000000;
+    --cielo: #B4CBD9;
+    --azulOscuro: #0F375A;
+
+
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    /* 1rem = 10 px */
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+
+/*---------------------------------------------------------------------  Toda la pagina ---------------------------------------------------------------------*/
+body {
+    background-color: var(--gris)
+}
+
+/*---------------------------------------------------------------------  Header ---------------------------------------------------------------------*/
+
+.header {
+    width: 100%;
+    padding: 2rem 3rem;
+    background-color: var(--blanco);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+
+}
+
+.logo a {
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: blanchedalmond;
+    line-height: 40px;
+}
+
+
+/*---------------------------------------------------------------------  navbar ---------------------------------------------------------------------*/
+
+.box_gris_nav {
+    height: 30px;
+    background-color: var(--gris)
+}
+
+.personalizado_nav {
+    background-color: #fff;
+}
+
+.custom-opcion {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+}
+
+.navbar-nav a {
+    font-size: 18px;
+    margin: 5px 40px;
+    color: var(--azulClaro);
+    font-weight: bold;
+}
+
+
+
+
+
+/*---------------------------------------------------------------------  registro ---------------------------------------------------------------------*/
+
+.box_gris {
+    background-color: var(--gris);
+}
+
+.box_gris_separador {
+    height: 30px;
+    background-color: var(--gris)
+}
+
+.box_registro {
+    margin: 0px 300px 0px 300px;
+    height: 100px;
+    background-color: #fff;
+    border-radius: 30px;
+}
+
+.text_registro {
+    color: #0F375A;
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 32px;
+}
+
+
+/*---------------------------------------------------------------------  formulario ---------------------------------------------------------------------*/
+
+.content {
+    padding: 7rem 0;
+
+}
+
+.form-control {
+    height: 45px;
+    border-radius: 0;
+}
+
+.form-control::placeholder {
+    font-size: 14px;
+}
+
+textarea::placeholder {
+    font-size: 14px;
+}
+
+.btn {
+    width: 100px;
+    height: 40px;
+    border-radius: 13px !important;
+    font-weight: bold;
+}
+
+.btn.btn-primary {
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 13px;
+    background: #89ABD9;
+    color: #fff;
+    border: none;
+}
+
+.btn.btn-primary:hover {
+    background-color: var(--azulClaro);
+    color: #fff;
+}
+
+.btn:active,
+.btn:focus {
+    outline: none;
+}
+
+.contact-wrap {
+    background: #F0F0F2;
+    border-radius: 20px
+}
+
+.contact-wrap .col-form-label {
+    font-size: 20px;
+    color: #1C4E8D;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    display: inline-block;
+    padding: 0;
+}
+
+.contact-wrap .form {
+    background: #fff;
+
+}
+
+.contact-wrap .form h3 {
+    color: #000;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.contact-wrap .contact-info {
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.contact-wrap .contact-info a {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.contact-wrap .contact-info h3 {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+
+#message {
+    resize: vertical;
+}
+
+#form-message-warning,
+#form-message-success {
+    display: none;
+}
+
+#form-message-warning {
+    color: #B90B0B;
+}
+
+#form-message-success {
+    color: #55A44E;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.btn{
+    padding: 12px 30px !important;
+    margin: 5px 1px;
+    font-size: 12px !important;
+    box-shadow: 0 2px 2px 0 hsla(0,0%,60%,.14), 0 3px 1px -2px hsla(0,0%,60%,.2), 0 1px 5px 0 hsla(0,0%,60%,.12);
+}
+
+
+input.form-control {
+    font-size: 17px; /* Ajusta el tamaño de la fuente según tus preferencias */
+}
+
+textArea.form-control {
+    font-size: 17px; /* Ajusta el tamaño de la fuente según tus preferencias */
+}
+
+select.form-select.form-select-sm.form-control {
+    font-size: 17px; /* Ajusta el tamaño de la fuente según tus preferencias */
+}
+
+#especialidad {
+    font-size: 14px; /* Ajusta el tamaño de la fuente según tus preferencias */
+}
+
+
+
+
+
+/*---------------------------------------------------------------------  TABLA DE FACTURAS ---------------------------------------------------------------------*/
+
+
+
+
+.bg-primary{
+    background: saddlebrown !important;
+}
+
+.ftco-section{
+    padding: 7em 0;
+}
+
+.ftco-no-pt{
+    padding-top: 0;
+}
+.ftco-no-pb{
+    padding-bottom: 0;
+}
+
+.heading-section{
+    font-size: 28px;
+    color: #000;
+}
+
+.img{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+
+.table{
+    min-width: 1000px !important;
+    width: 100%;
+    -webkit-box-shadow: 0px 5px 12px -12px rgba(0,0,0,0.29);
+    -moz-box-shadow: 0px 5px 12px -12px rgba(0,0,0,0.29);
+    box-shadow: 0px 5px 12px -12px rgba(0,0,0,0.29);
+    thead{
+        th{
+            border: none;
+            padding: 30px;
+            font-size: 13px;
+            color: #000;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+        tr{
+            background: #fff;
+        }
+    }
+    tbody{
+        tr{
+            background: #fff;
+        }
+        th,td{
+            border: none;
+            padding: 20px 30px;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+        td{
+            .close{
+                span{
+                    font-size: 12px;
+                    color:#red;
+                }
+            }
+        }
+    }
+}
+
+/*---------------------------------------------------------------------  tabla ---------------------------------------------------------------------*/
+
+
+.btn.btn-sm{
+    border-radius:3px !important;
+}
+
+.btn.btn-just-icon.btn-sm {
+    height: 30px;
+    min-width: 30px;
+    width: 30px;
+}
+
+.btn.btn-just-icon {
+    font-size: 24px;
+    height: 41px;
+    min-width: 41px;
+    width: 41px;
+    padding: 0 !important;
+    overflow: hidden;
+    position: relative;
+    line-height: 41px;
+}
+
+
+.btn.btn-info {
+    color: #fff !important;
+    background-color: var(--azulClaro) !important;
+    border-color: var(--azulClaro);
+    box-shadow: 0 2px 2px 0 rgba(0,188,212,.14),
+        0 3px 1px -2px rgba(0,188,212,.2),
+        0 1px 5px 0 rgba(0,188,212,.12) !important;
+}
+
+.btn.btn-info:hover {
+    box-shadow: 0 14px 26px -12px rgba(0,188,212,.42),
+        0 4px 23px 0 rgba(0,0,0,.12),
+        0 8px 10px -5px rgba(0,188,212,.2) !important;
+    background: var(--azulClaro) !important;
+}
+
+.btn.btn-info.btn-link{
+    background-color: transparent !important;
+    color: var(--azulClaro) !important;
+    box-shadow:none !important;
+}
+.btn.btn-success {
+    color: #fff !important;
+    background-color: #2e9b33 !important;
+    border-color: #2e9b33;
+    box-shadow: 0 2px 2px 0 rgba(76,175,80,.14),
+        0 3px 1px -2px rgba(76,175,80,.2),
+        0 1px 5px 0 rgba(76,175,80,.12) !important;
+}
+
+.btn.btn-success:hover {
+    box-shadow: 0 14px 26px -12px rgba(76,175,80,.42),
+        0 4px 23px 0 rgba(0,0,0,.12),
+        0 8px 10px -5px rgba(76,175,80,.2) !important;
+    background: #2e9b33  !important;
+}
+.btn.btn-success.btn-link{
+    background-color: transparent !important;
+    color: #2e9b33 !important;
+    box-shadow: none !important;
+}
+
+.btn.btn-danger {
+    color: #fff !important;
+    background-color: #f44336 !important;
+    border-color: #f44336;
+    box-shadow: 0 2px 2px 0 rgba(244,67,54,.14),
+        0 3px 1px -2px rgba(244,67,54,.2),
+        0 1px 5px 0 rgba(244,67,54,.12) !important;
+}
+
+.btn.btn-danger:hover {
+    box-shadow: 0 14px 26px -12px rgba(244,67,54,.42),
+        0 4px 23px 0 rgba(0,0,0,.12),
+        0 8px 10px -5px rgba(244,67,54,.2) !important;
+    background-color: #f33527 !important;
+
+}
+
+.btn.btn-danger.btn-link{
+    background-color: transparent !important;
+    color: #f44336 !important;
+    box-shadow: none !important;
+}
+.btn.btn-just-icon .material-icons {
+    margin-top: 0;
+    position: absolute;
+    width: 100%;
+    transform: none;
+    left: 0;
+    top: 0;
+    height: 100%;
+    line-height: 41px;
+    font-size: 20px;
+}
+
+.btn.btn-just-icon.btn-sm .material-icons {
+    font-size: 17px;
+    line-height: 29px;
+}
+
+
+.table thead tr th {
+    font-size: 17px ;
+    font-weight: bold;
+}
+
+.table>thead>tr>th{
+    padding: 12px 8px;
+    vertical-align: middle;
+    border-color: var(--azulClaro);
+    font-weight: bold;
+}
+
+.table>tbody>tr>td{
+    padding: 12px 8px;
+    vertical-align: middle;
+    border-color: var(--azulClaro);
+    font-weight: 500;
+    font-size:14px;
+    color: var(--azulOscuro);
+}
+
+.table .td-actions .btn {
+    margin: 0;
+    padding: 5px;
+}
+
+
+.danger-text {
+    color: #ff3547;
+}
+.success-text {
+    color: #00C851;
+}
+
+
+
+/*---------------------------------------------------------------------  Footer ---------------------------------------------------------------------*/
+
+.footer {
+    background: #fff;
+    text-align: center;
+}
+
+.copyright {
+    background: var(--blanco);
+    margin-top: 7rem;
+    padding: 2rem 0px;
+}
+
+.copyright p {
+    color: var(--negro);
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.copyright a {
+    color: var(--azulClaro);
+    text-decoration: none;
+}
+
+.copyright a:hover {
+    color: var(--negro);
+}
+

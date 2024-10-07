@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{/layout/plantilla::head}"> 
+
+    </head>
+    <body>
+
+
+        <div th:fragment="registroCita">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Registrar Cita
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+
+        <div th:fragment="formCita">
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <form class="mb-5" method="post" id="contactForm" name="contactForm" th:action="@{/cita/guardarCita}" th:object="${cita}">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Medico</label>
+                                            <input class="form-control" list="datalistOptions" id="medico" name="medico" placeholder="Medico"/>
+                                            <datalist id="datalistOptions">
+                                                <option th:each="medico : ${medicos}" th:value="${medico.Cedula}" th:text="${medico.Nombre}+' '+${medico.PrimerApellido}+' '+${medico.SegundoApellido}"></option>
+                                            </datalist>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Paciente</label>
+                                            <input class="form-control" list="pacientes" id="paciente" name="paciente" placeholder="Paciente"/>
+                                            <datalist id="pacientes">
+                                                <option th:each="paciente : ${pacientes}" th:value="${paciente.Cedula}" th:text="${paciente.Cedula}+' '+${paciente.Nombre}+' '+${paciente.PrimerApellido}"></option>
+                                            </datalist>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Tipo de Cita</label>
+                                            <select class="form-control form-select" name="tipo" id="tipo">
+                                                <option value="">Selecciona el tipo de la cita</option>
+                                                <option th:each="tipoCita : ${tipoCitas}" th:value="${tipoCita.idTipoCita}" th:text="${tipoCita.Nombre}"></option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label ">Fecha</label>
+                                            <input type="date" class="form-control " name="fecha" id="telefono"/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Motivo</label>
+                                            <br/>
+                                            <textarea class="form-control" id="id" name="motivoCita" rows="8" cols="100" placeholder="Motivo de la cita"></textarea>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+
+                                            <input type="hidden" name="estado" id="estado" value="Agendada">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <input type="submit" value="Registrar" class="btn btn-primary py-2 px-4"/>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div id="form-message-warning mt-4"></div>
+                                <div id="form-message-success">
+                                    Su registro fue exitoso
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+        <div th:fragment="buscarCita">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Información de Citas
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+        <div th:fragment="tabla">
+
+            <div class="container">
+                <div class="col-md-12 mt-5">
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Medico</th>
+                                    <th>Paciente</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="cita, contador: ${citas}">
+                                    <td>[[${contador.count}]]</td>
+                                    <td>[[${cita.medico.nombre}+' '+${cita.medico.primerApellido}]]</td>
+                                    <td>[[${cita.paciente.nombre}+' '+${cita.paciente.primerApellido}]]</td>
+                                    <td>[[${cita.fecha}]]</td>
+                                    <td>[[${cita.estado}]]</td>
+
+
+                                    <td class="td-actions text-end">
+                                        <a  th:href="@{/cita/ver/}+${cita.idCita}" class="btn btn-info btn-link btn-just-icon btn-sm" title="Ver">
+                                            <i class="material-icons">person</i>
+                                        </a>
+
+                                        <a th:if="${cita.estado != 'Finalizada'}" th:href="@{/cita/modificar/}+${cita.idCita}"  class="btn btn-success btn-link btn-just-icon btn-sm" title="Editar">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+
+                                        <a th:href="@{/cita/eliminar/}+${cita.idCita}" class="btn btn-danger btn-link btn-just-icon btn-sm" title="Eliminar">
+                                            <i class="material-icons">close</i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+        <div th:fragment="modCita">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Actualizar Cita
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+
+        <div th:fragment="modificaCita" >
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <form class="mb-5" method="post" id="contactForm" name="contactForm" th:action="@{/cita/actualizarCita}" th:object="${cita}">
+                                    <input type="hidden" class="form-control" id="idCita" name="idCita" th:value="*{idCita}" />
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Medico</label>
+                                            <input class="form-control" list="datalistOptions" id="medico" name="medico.cedula" th:field="*{medico}" />
+                                            <datalist id="datalistOptions">
+                                                <option th:each="medico : ${medicos}" th:value="${medico.Cedula}" th:text="${medico.Nombre} + ' ' + ${medico.PrimerApellido} + ' ' + ${medico.SegundoApellido}"></option>
+                                            </datalist>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Paciente</label>
+                                            <input class="form-control" list="pacientes" id="paciente" name="paciente" th:field="*{paciente}" placeholder="Paciente"/>
+                                            <datalist id="pacientes">
+                                                <option th:each="paciente : ${pacientes}" th:value="${paciente.Cedula}" th:text="${paciente.Cedula}+' '+${paciente.Nombre}+' '+${paciente.PrimerApellido}+' '+${paciente.SegundoApellido}"></option>
+                                            </datalist>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Tipo de Cita</label>
+                                            <select class="form-control form-select" name="tipo" id="tipo" th:field="*{tipo}">
+                                                <option th:each="tipoCita : ${tipoCitas}" th:value="${tipoCita.idTipoCita}" th:text="${tipoCita.Nombre}"></option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label ">Fecha</label>
+                                            <input type="date" class="form-control" name="fecha" id="fecha" th:value="*{Fecha}"/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Motivo</label>
+                                            <br/>
+                                            <textarea class="form-control" id="id" th:field="*{motivoCita}" name="motivoCita" rows="8" cols="100" placeholder="Prueba"></textarea>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Estado</label>
+                                            <select class="form-control form-select" name="estado" id="estado" onclick="manejo()" th:field="*{estado}">
+                                                <option th:if="*{estado != 'En sala de espera' && estado != 'En consulta'}" value="Agendada">Agendada</option>
+                                                <option th:if="*{estado != 'En consulta' }" value="En sala de espera">En sala de espera</option>
+                                                <option value="En consulta">En consulta</option>
+                                               
+
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3" name='med' id='med' style='display: none'>
+                                            <label class="col-form-label">Medicamentos</label>
+                                            <select class="select2 select2-hidden-accessible" multiple="multiple" id="medicamento" name="medicamento[]" data-placeholder="Seleccionar Medicamento" data-dropdown-css-class="select2-danger" style="width: 100%;" tabindex="1" aria-hidden="true">
+                                                <option th:each="medicamento : ${medicamentos}" th:value="${medicamento.codigo_medicamento}" th:text="${medicamento.codigo_medicamento + ' ' + medicamento.Nombre}" th:selected="${medicamentosCita.contains(medicamento)}"></option>
+                                            </select>
+
+                                            <input type="hidden" name="medicamentosSeleccionados" id="medicamentosSeleccionados" />
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3" name='trat' id='trat' style='display: none' >
+                                            <label class="col-form-label">Tratamientos</label>
+                                            <select class="select2 select2-hidden-accessible" multiple="multiple" id="tratamiento" name="tratamiento[]" data-placeholder="Seleccionar Tratamiento" data-dropdown-css-class="select2-danger" style="width: 100%;" tabindex="1" aria-hidden="true">
+                                                <option th:each="tratamiento : ${tratamientos}"
+                                                        th:value="${tratamiento.ID_Tratamiento}"
+                                                        th:text="${tratamiento.ID_Tratamiento + ' ' + tratamiento.nombre}"
+                                                        th:selected="${tratamientoCita.contains(tratamiento)}"></option>
+                                            </select>
+
+                                            <input type="hidden" name="tratamientosSeleccionados" id="tratamientosSeleccionados" />
+                                        </div>
+
+                                        <a th:href="@{/cita/pagar/}+${cita.idCita}" id="botonPago" class="btn btn-primary py-2 px-4">Pago</a>
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <input type="submit" value="Actualizar" class="btn btn-primary py-2 px-4"/>
+                                            <a th:href="@{/cita/crudCita}" class="btn btn-primary py-2 px-4">Volver</a>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+
+
+
+
+                            </div>
+                            <div class="box_gris_separador"> </div>
+                            <script>
+                                $(function () {
+                                    // Initialize Select2 Elements
+                                    $('.select2').select2();
+
+                                    // Intercept form submission and update the hidden field with selected values
+                                    $('#contactForm').submit(function () {
+                                        var selectedMedicamentos = $('#medicamento').val();
+                                        $('#medicamentosSeleccionados').val(selectedMedicamentos);
+
+                                        var selectedTratamientos = $('#tratamiento').val();
+                                        $('#tratamientosSeleccionados').val(selectedTratamientos);
+                                    });
+
+                                });
+                            </script>
+
+
+                            <script>
+                                function manejo() {
+                                    const estado = document.getElementById('estado').value;
+                                    const medDiv = document.getElementById('med');
+                                    const tratDiv = document.getElementById('trat');
+                                    const botonPagar = document.getElementById('botonPago');
+                                    
+
+                                    if (estado === 'En consulta') {
+                                        medDiv.style.display = "block";
+                                        tratDiv.style.display = "block";
+                                        botonPagar.style.display = "block";
+                                    } else {
+                                        medDiv.style.display = "none";
+                                        tratDiv.style.display = "none";
+                                        botonPagar.style.display = "none";
+                                    }
+                                }
+
+                                // Llama a manejo al cargar la página
+                                window.addEventListener('load', manejo);
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div th:fragment="vCita">
+            <div class="box_gris">
+                <div class="box_registro">
+                    <p class="text_registro text-center">
+                        Información de Cita
+                    </p>
+                </div>
+            </div>
+            <div class="box_gris_separador"> </div>
+        </div>
+
+
+
+        <div th:fragment="verCita" >
+
+            <div class="box_gris_separador"> </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="row align-items-stretch justify-content-center no-gutters">
+                        <div class="col-md-12">
+                            <div class="form contact-wrap p-5">
+                                <div class="mb-5" id="contactForm" th:object="${cita}">
+
+                                    <div class="row">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Medico</label>
+                                            <input class="form-control"  id="medico" name="medico.cedula" th:value="*{medico.nombre}+' '+*{medico.primerApellido}" readonly='true'/>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Paciente</label>
+                                            <input class="form-control"  id="paciente" name="paciente" th:value="*{paciente.cedula}+': '+*{paciente.nombre}+' '+*{paciente.primerApellido}" readonly='true'/>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Tipo de Cita</label>
+                                            <input class="form-control"  id="tipo" name="tipo" th:value="*{tipo.Nombre}" readonly='true'/>
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label ">Fecha</label>
+                                            <input type="date" class="form-control " name="fecha" id="fecha" th:value="*{Fecha}" readonly='true'/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Motivo</label>
+                                            <br/>
+                                            <textarea class="form-control" id="id" th:field="*{motivoCita}" name="motivoCita" rows="8" cols="100" readonly='true'></textarea>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label class="col-form-label">Estado</label>
+                                            <input class="form-control"  id="estado" name="estado" th:value="*{estado}" readonly='true'/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-5">
+
+                                        <div class="col-md-6 form-group mb-3" th:if="${#lists.size(medicamentos) > 0}">
+                                            <label class="col-form-label">Medicamentos</label>
+                                            <br/>
+                                            <ul class="list-group">
+                                                <li th:each="medicamento : ${medicamentos}" th:text="${medicamento.Nombre}"  class="list-group-item disabled" aria-disabled="true"></li>
+                                            </ul>
+
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3" th:if="${#lists.size(tratamientos) > 0}">
+                                            <label class="col-form-label">Tratamiento</label>
+                                            <ul class="list-group">
+                                                <li th:each="tratamiento : ${tratamientos}" th:text="${tratamiento.nombre}"  class="list-group-item disabled" aria-disabled="true"></li>
+                                            </ul>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 form-group text-center">
+                                            <a th:href="@{/cita/crudCita}" class="btn btn-primary py-2 px-4">Volver</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="box_gris_separador"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </body>
+
+</html>
